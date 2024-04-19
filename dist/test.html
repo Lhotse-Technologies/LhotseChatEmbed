@@ -2,30 +2,44 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-  <title>Document</title>
+  <title>Various chat</title>
 </head>
 <body>
 <flowise-fullchatbot></flowise-fullchatbot>
 <script type="module">
-  import Chatbot from "./web.js"
+  import Chatbot from "https://cdn.jsdelivr.net/gh/Lhotse-Technologies/web-embedding/web.js"
+
+  // Get URL search parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const chatId = urlParams.get('chatId');
+  let chatTitle = urlParams.get('chatTitle');
+  document.title = chatTitle;
+
+  if (!chatId) {
+    alert("We can't start the chat without a chat title.");
+    chatTitle = "We can't start the chat";
+    document.title = "Unable to Start Chat";
+  }
+
   Chatbot.initFull({
-    chatflowid: "4f2e14a8-6e76-4032-b210-05ae3ba70103",
+    chatflowid: chatId,
     apiHost: "https://lh-ai.azurewebsites.net",
     theme: {
       button:{
         backgroundColor: "#000"
       },
       chatWindow: {
+        titleAvatarSrc: "https://ai-chats.s3.eu-central-1.amazonaws.com/lhotse-logo-white-black-background.jpg",
         bubbleTextColor: "#000",
-        title: "Request refiner",
-        welcomeMessage: "Hello! This is custom welcome message",
+        title: chatTitle,
+        welcomeMessage: "Hello! any product or service I can help you refined?",
         backgroundColor: "#ffffff",
         poweredByTextColor: "#303235",
         botMessage: {
           backgroundColor: "#f7f8ff",
           textColor: "#303235",
           showAvatar: true,
-          avatarSrc: "https://migule-p-dropshare.s3-eu-central-1.amazonaws.com/LHOTSE_BLACK_1x.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARYJEIECINIOLXCXV%2F20240417%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20240417T105931Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=349db8ec693e0f557ecf93bc8397030e2bacd15855522176549c045cb7b6bcc4",
+          avatarSrc: "https://ai-chats.s3.eu-central-1.amazonaws.com/lhotse-logo-white-black-background.jpg",
         },
         userMessage: {
           backgroundColor: "#000",
@@ -39,7 +53,7 @@
         }
       }
     }
-  })
+  });
 </script>
 
 </body>
